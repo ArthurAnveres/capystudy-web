@@ -40,3 +40,4 @@ function displayTimeLeft(seconds) {
 	document.title = displayTime;
 	pomodoroTime.textContent = displayTime;
 }
+

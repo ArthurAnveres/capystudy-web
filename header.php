@@ -46,3 +46,34 @@
           </div>
         </div>
     </nav>
+
+    <form id="chat-form">
+    <h1>Fale com nossa Capivara Robo</h1>
+        <label for="message">Digite sua mensagem:</label>
+        <input type="text" id="message" name="message" required>
+        <button type="submit">Enviar</button>
+    </form>
+    <div id="response"></div>
+
+    <script>
+        document.getElementById('chat-form').addEventListener('submit', function(event) {
+            event.preventDefault(); // Impede o envio padrão do formulário
+            var message = document.getElementById('message').value;
+
+            fetch('chatgpt.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body: 'message=' + encodeURIComponent(message)
+            })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('response').innerText = data.error || data.choices[0].message.content;
+            })
+            .catch(error => console.error('Error:', error));
+        });
+    </script>
+</form>
+
+  </div>
